@@ -24,7 +24,7 @@
    <ul class="footul">
     <li align="left">
       <a href="/about" style="color:black;"> About </a></li>
-    <li align="right"><a href="/search" style="color:black">search</a></li>
+    <li style="float:right"><a href="/search" style="color:black">Search</a></li>
       </ul>
       <div align="center">&copy; {{ new Date().getFullYear() }}</div>
    </div>
@@ -68,11 +68,15 @@ h1 {
 
 .footul li{
   display: inline-block;
-  margin-left:250px;
+   margin-left:80px; 
   }
 
-.footul li:first-child {
-    margin-left:100px;
+/* .footul li:first-child {
+    margin-left:0px;
+} */
+
+.footul li:nth-child(2){
+  margin-right: 100px;
 }
 .footul{
   list-style:none;

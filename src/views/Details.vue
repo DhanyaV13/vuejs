@@ -53,6 +53,7 @@ export default class Details extends Vue {
       year: book.first_publish_year,
       cover_id: book.cover_edition_key
     }});
+    location.reload();
 }
   created() {
     this.book = {
@@ -69,7 +70,7 @@ export default class Details extends Vue {
 
 mounted () {
     axios
-      .get("https://openlibrary.org/search.json?title="+(this.book.title.split(" ")[1]))
+      .get("https://openlibrary.org/search.json?title="+((this.book.title.split(" ")[1])))
       .then(response => (this.related = response.data.docs))
       
   }

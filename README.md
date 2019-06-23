@@ -13,6 +13,8 @@ navigate to the directory and run the following command -->
 
 	cd vuejs
 	npm i vue-material@1.0.0-beta-10.2 axios@0.18.0 vue-axios@2.1.4
+	
+	Note :- Just in case after running above command,if there is an error please remove the node_modules folder 
 
 Step 2: 
 

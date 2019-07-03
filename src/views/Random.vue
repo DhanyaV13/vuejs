@@ -1,30 +1,32 @@
-<<template>
+<template>
 <div id="app">
- <div class="home">
-     <p> press the button to generate a random data --> 
-     <span><button v-on:click="randomitem()"> Random Item </button> 
-</span></p>
+  <div class="home">
+    <p> Button generates a random data --> 
+      <span>
+        <button v-on:click="randomitem()"> Random Item </button> 
+      </span>
+    </p>
     <div class="details">
-    <h2> Random Book Details</h2>
-    <div class="content">
-      <md-card class="details-card">
-        <h3>{{btitle}}</h3>
-        <h4>Subject</h4>
-        <p> {{bisbn}} </p>
-        <h4>Publisher</h4>
-        <p>{{bpublisher}}</p>
-        <h4>Type</h4>
-        <p>{{btype}}</p>
-        <h4>Published Year</h4>
-        <p>{{byear}}</p>
-      </md-card>
-   <hr> 
-   </div>
-</div>
-</div>
-<br>
-<br>
-<br>
+      <h2> Random Book Details</h2>
+      <div class="content">
+        <md-card class="details-card">
+          <h3>{{btitle}}</h3>
+          <h4>Subject</h4>
+          <p> {{bisbn}} </p>
+          <h4>Publisher</h4>
+          <p>{{bpublisher}}</p>
+          <h4>Type</h4>
+          <p>{{btype}}</p>
+          <h4>Published Year</h4>
+          <p>{{byear}}</p>
+        </md-card>
+        <hr> 
+      </div> <!-- content-->
+    </div> <!--Details-->
+  </div>  <!-- home-->
+  <br>
+  <br>
+  <br>
 </div>
 </template>
 <script lang="ts">
@@ -44,7 +46,7 @@ export default class Random extends Vue {
   byear:any;
 
   data(){
-      return{
+    return{
       randomdata:null,
       arrayRandom:null,
       final:null,
@@ -53,32 +55,37 @@ export default class Random extends Vue {
       bpublisher:null,
       btype:null,
       byear:null,
-      }
+    }
   }
- randomitem(){
-     this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
+
+  randomitem(){
+    this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
     this.final=this.randomdata[this.arrayRandom];
     this.btitle=this.final.title;
     this.bisbn=this.final.subject;
     this.bpublisher=this.final.publisher;
     this.btype=this.final.type;
     this.byear=this.final.first_publish_year;
-
- }
+  }
    
   mounted () {
     axios
-   // .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    .get("https://openlibrary.org/search.json?author='Jane'")
+      .get("https://openlibrary.org/search.json?author='Jane'")
       .then(response => {this.randomdata = response.data.docs})
-      this.randomitem()
+  }
+
+  created(){
+    axios
+      .get("https://openlibrary.org/search.json?author='Jane'")
+      .then(response => {this.randomdata = response.data.docs})
   }
 
 
   getImageSrc() {
     return "http://covers.openlibrary.org/b/OLID/" + this.final.cover_id + "-M.jpg";
   }
-}
+
+} // closing of the vue
 
 
 </script>

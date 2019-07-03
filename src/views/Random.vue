@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="home">
-    <p> Button generates a random data --> 
+    <p> Button generates a random data
       <span>
         <button v-on:click="randomitem()"> Random Item </button> 
       </span>

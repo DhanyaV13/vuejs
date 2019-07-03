@@ -1,37 +1,24 @@
 <template>
    <div id="app">
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success">
-  <ul class="navbar-nav">
-    <li class="nav-item ">
-      <a class="nav-link" href="/">Home</a>
-    </li>
-   <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Categories
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Information</a>
-        </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/random">Random</a>
-    </li>
-  </ul>
-</nav>
-<router-view/>
-  <div class="footer">
-
-   <ul class="footul">
-    <li align="left">
-      <a href="/about" style="color:black;"> About </a></li>
-    <li style="float:right"><a href="/search" style="color:black">Search</a></li>
+    <div class="header">
+      <ul id="ulhead">
+          <li><a class="active" href="/">Home</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="/random">Random</a></li>
+      </ul>
+    </div>
+    <router-view/>
+    <div class="footer">
+      <ul class="footul">
+        <li align="left">
+          <a href="/about" style="color:white;"> About </a>
+        </li>
+        <li style="float:right">
+          <a href="/search" style="color:white">Search</a>
+        </li>
       </ul>
       <div align="center">&copy; {{ new Date().getFullYear() }}</div>
-   </div>
-   <!-- <div>
-     <ul>
-   </ul>
-   </div> -->
+    </div>
   </div>
 </template>
 
@@ -48,20 +35,46 @@ export default class App extends Vue {
 <style>
 #app {
   font-family: 'Ubuntu', sans-serif;
+  height: 100%;
 }
+
 
 .branding {
   flex: 1;
   text-align: left;
 }
-
-
-.footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-    background-color: green;
+ 
+#ulhead{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:green;
 }
+
+#ulhead li {
+  float: left;
+}
+
+#ulhead li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#ulhead li a:hover {
+  background-color:lightgreen;
+}
+.footer{
+  margin:auto;
+  width:100%;
+  height:auto;
+  overflow:hidden;
+  background-color: green;
+}
+
 h1 {
   text-align: center;
 }
@@ -69,7 +82,7 @@ h1 {
 .footul li{
   display: inline-block;
    margin-left:80px; 
-  }
+}
 
 /* .footul li:first-child {
     margin-left:0px;
@@ -78,8 +91,10 @@ h1 {
 .footul li:nth-child(2){
   margin-right: 100px;
 }
+
 .footul{
   list-style:none;
   margin-bottom:0 !important;
 }
+
 </style>

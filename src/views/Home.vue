@@ -36,6 +36,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import  axios from 'axios'
 @Component
 
+
 export default class Home extends Vue {
   info: any;
   books:any;
@@ -68,7 +69,7 @@ export default class Home extends Vue {
       this.sortDirection='DESC';
       this.counter+=1;
      }
-    this.info.sort( function( a, b ){
+    this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
       if( this.sortDirection == 'ASC' ){
         return ( ( a.title == b.title ) ? 0 : ( ( a.title > b.title ) ? 1 : -1 ) );
         }
@@ -111,6 +112,7 @@ export default class Home extends Vue {
   {
   padding-top: 50px;  
   }
+
 
  
 </style>

@@ -38,6 +38,10 @@ export default class App extends Vue {
   height: 100%;
 }
 
+.header{
+  position: fixed;
+  width: 100%;
+}
 
 .branding {
   flex: 1;

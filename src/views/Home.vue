@@ -1,18 +1,17 @@
 <<template>
-  <div class="home"  v-bind:style="{ 'background-image': 'url('+ require('./../assets/backgroud-image-books.jpg') + ')',
-  'background-repeat':'no-repeat','background-size':'cover','background-position':'center center','background-attachment':'fixed' }">
-    <h1>Book List
-      <span style="cursor:pointer" v-on:click="sortedArray()">
-        <i class="material-icons">
+  <div class="home">
+    <h1 >Book List
+      <span style="cursor:pointer" >
+        <i class="material-icons" v-on:click="sortedArrayAsc()">
           arrow_upward
         </i>
-        <i class="material-icons">
+        <i class="material-icons" v-on:click="sortedArrayDesc()">
           arrow_downward
         </i>
       </span>
     </h1>
     <br><br>
-    <div id="app" >
+      <div class="app">
       <section v-if="errored">
         <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
       </section>
@@ -32,11 +31,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-//import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import  axios from 'axios'
+
 @Component
-
-
 export default class Home extends Vue {
   info: any;
   books:any;
@@ -45,9 +42,9 @@ export default class Home extends Vue {
   a:number=0;
   b:number=0;
   sortDirection: string="";
-  counter:number=0;
 
 
+ 
   data () {
     return {
       info: null,
@@ -55,25 +52,21 @@ export default class Home extends Vue {
       errored: true,
       books:null,
       sortDirection: 'ASC',
-      counter:0,
     }
   }
 
-  sortedArray(){
-    if(this.counter==0||(this.counter%2==0)){
-      this.sortDirection= 'ASC';
-      this.counter+=1;
-     }
-    else
-     {
-      this.sortDirection='DESC';
-      this.counter+=1;
-     }
+  sortedArrayAsc(){
+    this.sortDirection='ASC';
     this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
       if( this.sortDirection == 'ASC' ){
         return ( ( a.title == b.title ) ? 0 : ( ( a.title > b.title ) ? 1 : -1 ) );
         }
+    }.bind(this));
+  }
 
+  sortedArrayDesc(){
+    this.sortDirection='DESC'
+     this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
       if( this.sortDirection == 'DESC' ){
         return ( ( a.title == b.title ) ? 0 : ( ( a.title < b.title ) ? 1 : -1 ) );
         }
@@ -113,7 +106,9 @@ export default class Home extends Vue {
   padding-top: 50px;  
   }
 
-
+h1{
+  color: black;
+}
  
 </style>
 

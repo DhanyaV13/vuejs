@@ -3,23 +3,25 @@
   <div class="home">
     <p> Button generates a random data
       <span>
-        <button v-on:click="randomitem()"> Random Item </button> 
+        <button v-on:click="randomItem()"> Random Item </button> 
       </span>
     </p>
-    <div class="details">
+    <div class="details"  align="center">
       <h2> Random Book Details</h2>
       <div class="content">
-        <md-card class="details-card">
+        <div class="details-card">
           <h3>{{btitle}}</h3>
+          <br>
+          <img v-bind:src="getImageSrc()" />
           <h4>Subject</h4>
-          <p> {{bisbn}} </p>
+          <p>{{bsubj}}</p>
           <h4>Publisher</h4>
           <p>{{bpublisher}}</p>
-          <h4>Type</h4>
-          <p>{{btype}}</p>
+          <h4>Author</h4>
+          <p>{{bauthor}}</p>
           <h4>Published Year</h4>
           <p>{{byear}}</p>
-        </md-card>
+        </div>
         <hr> 
       </div> <!-- content-->
     </div> <!--Details-->
@@ -40,9 +42,10 @@ export default class Random extends Vue {
   arrayRandom:any;
   final:any;
   btitle:any;
-  bisbn:any;
+  bimg:any;
+  bsubj:any;
   bpublisher:any;
-  btype:any;
+  bauthor:string='';
   byear:any;
 
   data(){
@@ -51,20 +54,22 @@ export default class Random extends Vue {
       arrayRandom:null,
       final:null,
       btitle:null,
-      bisbn:null,
+      bimg:null,
+      bsubj:null,
       bpublisher:null,
-      btype:null,
+      bauthor:null,
       byear:null,
     }
   }
 
-  randomitem(){
+  randomItem(){
     this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
     this.final=this.randomdata[this.arrayRandom];
     this.btitle=this.final.title;
-    this.bisbn=this.final.subject;
-    this.bpublisher=this.final.publisher;
-    this.btype=this.final.type;
+    this.bimg=this.final.cover_edition_key;
+    this.bsubj=this.final.subject && this.final.subject.join(', ');
+    this.bpublisher=this.final.publisher  && this.final.publisher.join(', ');
+    this.bauthor=this.final.author_name && this.final.author_name.join(', ');
     this.byear=this.final.first_publish_year;
   }
    
@@ -74,15 +79,10 @@ export default class Random extends Vue {
       .then(response => {this.randomdata = response.data.docs})
   }
 
-  created(){
-    axios
-      .get("https://openlibrary.org/search.json?author='Jane'")
-      .then(response => {this.randomdata = response.data.docs})
-  }
 
 
   getImageSrc() {
-    return "http://covers.openlibrary.org/b/OLID/" + this.final.cover_id + "-M.jpg";
+    return "http://covers.openlibrary.org/b/OLID/" + this.bimg + "-M.jpg";
   }
 
 } // closing of the vue
@@ -92,15 +92,20 @@ export default class Random extends Vue {
 <style>
 .home{
   padding-top: 100px;
+  color: white;
+}
+
+h4{
+  color: black;
 }
 .content {
-  display: flex;
   justify-content: center;
 }
 
 .details-card {
   max-width: 800px;
   padding: 1rem 2rem;
+  background-color: gray;
 }
 
 .details-card p {

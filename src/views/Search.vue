@@ -3,7 +3,7 @@
     <form v-on:submit.prevent="search">
       <div class="input-group">
         <md-field class="input-group-field">
-          <label style="color:blue">Search</label>
+          <label style="color:white">Search</label>
           <md-input v-model="query" style="-webkit-text-fill-color: blue !important"></md-input>
         </md-field>
         <div class="input-group-button">
@@ -33,7 +33,7 @@
       <br>
       <br>
     </div> <!-- search result div ends -->
-    <div v-show="!searchResult" style="text-align:center">
+    <div v-show="!searchResult" style="text-align:center;color:white">
       <p>Enter any text and books containing the word would appear</p>
       <br>
       <img src="./../assets/searchingbook.jpg" width="600" height="500" >

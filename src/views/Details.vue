@@ -1,15 +1,15 @@
 <template>
   <div class="details">
     <h1>Book Details</h1>
-    <div class="content">
-      <md-card class="details-card">
+    <div class="content" align="center">
+      <div class="details-card">
         <h3>{{book.title}}</h3>
         <img v-bind:src="getImageSrc()" />
         <h4>Authors</h4>
         <p> {{book.authors}} </p>
         <h4>Published</h4>
         <p>{{book.year}}</p>
-      </md-card>
+      </div>
     </div>
     <br>
     <br>
@@ -19,9 +19,6 @@
         {{b.title}}
       </li>
     </ul>
-    <br>
-    <br>
-    <br>
   </div>
 </template>
 
@@ -77,16 +74,19 @@ export default class Details extends Vue {
 
 <style>
 .details{
-  padding: 15px;
+  padding: 90px;
+  color: white;
 }
 .content {
   display: flex;
   justify-content: center;
+
 }
 
 .details-card {
   max-width: 800px;
   padding: 1rem 2rem;
+  background-color: gray;
 }
 
 .details-card p {

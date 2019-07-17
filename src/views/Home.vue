@@ -2,16 +2,11 @@
   <div class="home">
     <h1 >Book List
       <span style="cursor:pointer" >
-        <i class="material-icons" v-on:click="sortedArrayAsc()">
-          arrow_upward
-        </i>
-        <i class="material-icons" v-on:click="sortedArrayDesc()">
-          arrow_downward
-        </i>
+        <i class="fa fa-fw fa-sort" v-on:click="sortedArray()"></i>
       </span>
     </h1>
     <br><br>
-      <div class="app">
+    <div class="app1">
       <section v-if="errored">
         <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
       </section>
@@ -32,6 +27,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import  axios from 'axios'
+import store from '@/store.ts'
 
 @Component
 export default class Home extends Vue {
@@ -55,18 +51,21 @@ export default class Home extends Vue {
     }
   }
 
-  sortedArrayAsc(){
-    this.sortDirection='ASC';
+  sortedArray(){
+    if(this.$store.state.count==0||(this.$store.state.count%2==0)){
+      this.sortDirection= 'ASC';
+      this.$store.commit('increment');
+     }
+    else
+     {
+      this.sortDirection='DESC';
+      this.$store.commit('increment');
+     }
     this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
       if( this.sortDirection == 'ASC' ){
         return ( ( a.title == b.title ) ? 0 : ( ( a.title > b.title ) ? 1 : -1 ) );
         }
-    }.bind(this));
-  }
 
-  sortedArrayDesc(){
-    this.sortDirection='DESC'
-     this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
       if( this.sortDirection == 'DESC' ){
         return ( ( a.title == b.title ) ? 0 : ( ( a.title < b.title ) ? 1 : -1 ) );
         }
@@ -101,13 +100,17 @@ export default class Home extends Vue {
 
 </script>
 <style>
-.home
-  {
-  padding-top: 50px;  
-  }
+.home{
+  padding-top: 90px;
+  color: white;
+}
 
 h1{
   color: black;
+}
+
+.app{
+  font-size:medium;
 }
  
 </style>

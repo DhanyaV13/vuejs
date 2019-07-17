@@ -1,5 +1,4 @@
 <template>
-<div id="app">
   <div class="home">
     <p> Button generates a random data
       <span>
@@ -25,91 +24,86 @@
         <hr> 
       </div> <!-- content-->
     </div> <!--Details-->
+  <br>
+  <br>
+  <br>
   </div>  <!-- home-->
-  <br>
-  <br>
-  <br>
-</div>
 </template>
+
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-import  axios from 'axios';
+  import { Component, Vue } from 'vue-property-decorator';
+  import  axios from 'axios';
 
-@Component
-export default class Random extends Vue {
-  randomdata: any;
-  arrayRandom:any;
-  final:any;
-  btitle:any;
-  bimg:any;
-  bsubj:any;
-  bpublisher:any;
-  bauthor:string='';
-  byear:any;
+  @Component
+  export default class Random extends Vue {
+    randomdata: any;
+    arrayRandom:any;
+    final:any;
+    btitle:any;
+    bimg:any;
+    bsubj:any;
+    bpublisher:any;
+    bauthor:string='';
+    byear:any;
 
-  data(){
-    return{
-      randomdata:null,
-      arrayRandom:null,
-      final:null,
-      btitle:null,
-      bimg:null,
-      bsubj:null,
-      bpublisher:null,
-      bauthor:null,
-      byear:null,
+    data(){
+      return{
+        randomdata:null,
+        arrayRandom:null,
+        final:null,
+        btitle:null,
+        bimg:null,
+        bsubj:null,
+        bpublisher:null,
+        bauthor:null,
+        byear:null,
+      }
     }
-  }
 
-  randomItem(){
-    this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
-    this.final=this.randomdata[this.arrayRandom];
-    this.btitle=this.final.title;
-    this.bimg=this.final.cover_edition_key;
-    this.bsubj=this.final.subject && this.final.subject.join(', ');
-    this.bpublisher=this.final.publisher  && this.final.publisher.join(', ');
-    this.bauthor=this.final.author_name && this.final.author_name.join(', ');
-    this.byear=this.final.first_publish_year;
-  }
-   
-  mounted () {
-    axios
-      .get("https://openlibrary.org/search.json?author='Jane'")
-      .then(response => {this.randomdata = response.data.docs})
-  }
-
+    randomItem(){
+      this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
+      this.final=this.randomdata[this.arrayRandom];
+      this.btitle=this.final.title;
+      this.bimg=this.final.cover_edition_key;
+      this.bsubj=this.final.subject && this.final.subject.join(', ');
+      this.bpublisher=this.final.publisher  && this.final.publisher.join(', ');
+      this.bauthor=this.final.author_name && this.final.author_name.join(', ');
+      this.byear=this.final.first_publish_year;
+    }
+    
+    mounted () {
+      axios
+        .get("https://openlibrary.org/search.json?author='Jane'")
+        .then(response => {this.randomdata = response.data.docs})
+    }
 
 
-  getImageSrc() {
-    return "http://covers.openlibrary.org/b/OLID/" + this.bimg + "-M.jpg";
-  }
 
-} // closing of the vue
+    getImageSrc() {
+      return "http://covers.openlibrary.org/b/OLID/" + this.bimg + "-M.jpg";
+    }
+
+  } // closing of the vue
 
 
 </script>
+
 <style>
-.home{
-  padding-top: 100px;
-  color: white;
-}
+  h4{
+    color: black;
+  }
+  .content {
+    justify-content: center;
+  }
 
-h4{
-  color: black;
-}
-.content {
-  justify-content: center;
-}
+  .details-card {
+    max-width: 800px;
+    padding: 1rem 2rem;
+    background-color: gray;
+  }
 
-.details-card {
-  max-width: 800px;
-  padding: 1rem 2rem;
-  background-color: gray;
-}
-
-.details-card p {
-  padding-left: 2rem;
-}
+  .details-card p {
+    padding-left: 2rem;
+  }
 </style>
 

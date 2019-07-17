@@ -24,94 +24,95 @@
     <br>
   </div>
 </template>
+
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import  axios from 'axios'
-import store from '@/store.ts'
+  import { Component, Vue } from 'vue-property-decorator';
+  import  axios from 'axios'
+  import store from '@/store.ts'
 
-@Component
-export default class Home extends Vue {
-  info: any;
-  books:any;
-  errored: boolean|undefined;
-  loading: boolean|undefined;
-  a:number=0;
-  b:number=0;
-  sortDirection: string="";
+  @Component
+  export default class Home extends Vue {
+    info: any;
+    books:any;
+    errored: boolean|undefined;
+    loading: boolean|undefined;
+    a:number=0;
+    b:number=0;
+    sortDirection: string="";
 
 
- 
-  data () {
-    return {
-      info: null,
-      loading:false,
-      errored: true,
-      books:null,
-      sortDirection: 'ASC',
+  
+    data () {
+      return {
+        info: null,
+        loading:false,
+        errored: true,
+        books:null,
+        sortDirection: 'ASC',
+      }
     }
-  }
 
-  sortedArray(){
-    if(this.$store.state.count==0||(this.$store.state.count%2==0)){
-      this.sortDirection= 'ASC';
-      this.$store.commit('increment');
-     }
-    else
-     {
-      this.sortDirection='DESC';
-      this.$store.commit('increment');
-     }
-    this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
-      if( this.sortDirection == 'ASC' ){
-        return ( ( a.title == b.title ) ? 0 : ( ( a.title > b.title ) ? 1 : -1 ) );
-        }
+    sortedArray(){
+      if(this.$store.state.count==0||(this.$store.state.count%2==0)){
+        this.sortDirection= 'ASC';
+        this.$store.commit('increment');
+      }
+      else
+      {
+        this.sortDirection='DESC';
+        this.$store.commit('increment');
+      }
+      this.info.sort( function(this: any, a: { title: number; }, b: { title: number; } ){
+        if( this.sortDirection == 'ASC' ){
+          return ( ( a.title == b.title ) ? 0 : ( ( a.title > b.title ) ? 1 : -1 ) );
+          }
 
-      if( this.sortDirection == 'DESC' ){
-        return ( ( a.title == b.title ) ? 0 : ( ( a.title < b.title ) ? 1 : -1 ) );
-        }
+        if( this.sortDirection == 'DESC' ){
+          return ( ( a.title == b.title ) ? 0 : ( ( a.title < b.title ) ? 1 : -1 ) );
+          }
 
-    }.bind(this));
-  }
+      }.bind(this));
+    }
 
-  mounted () {
-    this.errored = false,
-    this.loading= true,
-    axios
-      .get("https://openlibrary.org/search.json?author='Jane'")
-      .then(response => (this.info = response.data.docs.slice(0,10)))
-      .catch(error => {
-        console.log(error)
-        this.errored = true
-      })
-      .finally(() => this.loading = false)
-  }
+    mounted () {
+      this.errored = false,
+      this.loading= true,
+      axios
+        .get("https://openlibrary.org/search.json?author='Jane'")
+        .then(response => (this.info = response.data.docs.slice(0,10)))
+        .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally(() => this.loading = false)
+    }
 
-  viewDetails(book: any) {
-    this.$router.push({ path: 'details', query: {
-      title: book.title,
-      authors: book.author_name && book.author_name.join(', '),
-      year: book.first_publish_year,
-      cover_id: book.cover_edition_key
-    }});
-  }
+    viewDetails(book: any) {
+      this.$router.push({ path: 'details', query: {
+        title: book.title,
+        authors: book.author_name && book.author_name.join(', '),
+        year: book.first_publish_year,
+        cover_id: book.cover_edition_key
+      }});
+    }
 
-} //closing of the vue
-
+  } //closing of the vue
 
 </script>
+
 <style>
-.home{
-  padding-top: 90px;
-  color: white;
-}
+  .home{
+    padding-top: 90px;
+    color: white;
+  }
 
-h1{
-  color: black;
-}
+  h1{
+    color: black;
+  }
 
-.app{
-  font-size:medium;
-}
+  .app1{
+    font-size:medium;
+  }
  
 </style>
 

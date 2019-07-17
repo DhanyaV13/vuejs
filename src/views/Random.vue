@@ -9,17 +9,17 @@
       <h2> Random Book Details</h2>
       <div class="content">
         <div class="details-card">
-          <h3>{{btitle}}</h3>
+          <h3>{{bTitle}}</h3>
           <br>
           <img v-bind:src="getImageSrc()" />
           <h4>Subject</h4>
-          <p>{{bsubj}}</p>
+          <p>{{bSubj}}</p>
           <h4>Publisher</h4>
-          <p>{{bpublisher}}</p>
+          <p>{{bPublisher}}</p>
           <h4>Author</h4>
-          <p>{{bauthor}}</p>
+          <p>{{bAuthor}}</p>
           <h4>Published Year</h4>
-          <p>{{byear}}</p>
+          <p>{{bYear}}</p>
         </div>
         <hr> 
       </div> <!-- content-->
@@ -36,51 +36,51 @@
 
   @Component
   export default class Random extends Vue {
-    randomdata: any;
+    randomData: any;
     arrayRandom:any;
     final:any;
-    btitle:any;
-    bimg:any;
-    bsubj:any;
-    bpublisher:any;
-    bauthor:string='';
-    byear:any;
+    bTitle:any;
+    bImg:any;
+    bSubj:any;
+    bPublisher:any;
+    bAuthor:string='';
+    bYear:any;
 
     data(){
       return{
-        randomdata:null,
+        randomData:null,
         arrayRandom:null,
         final:null,
-        btitle:null,
-        bimg:null,
-        bsubj:null,
-        bpublisher:null,
-        bauthor:null,
-        byear:null,
+        bTitle:null,
+        bImg:null,
+        bSubj:null,
+        bPublisher:null,
+        bAuthor:null,
+        bYear:null,
       }
     }
 
     randomItem(){
-      this.arrayRandom = Math.floor(Math.random() * this.randomdata.length);
-      this.final=this.randomdata[this.arrayRandom];
-      this.btitle=this.final.title;
-      this.bimg=this.final.cover_edition_key;
-      this.bsubj=this.final.subject && this.final.subject.join(', ');
-      this.bpublisher=this.final.publisher  && this.final.publisher.join(', ');
-      this.bauthor=this.final.author_name && this.final.author_name.join(', ');
-      this.byear=this.final.first_publish_year;
+      this.arrayRandom = Math.floor(Math.random() * this.randomData.length);
+      this.final=this.randomData[this.arrayRandom];
+      this.bTitle=this.final.title;
+      this.bImg=this.final.cover_edition_key;
+      this.bSubj=this.final.subject && this.final.subject.join(', ');
+      this.bPublisher=this.final.publisher  && this.final.publisher.join(', ');
+      this.bAuthor=this.final.author_name && this.final.author_name.join(', ');
+      this.bYear=this.final.first_publish_year;
     }
     
     mounted () {
       axios
         .get("https://openlibrary.org/search.json?author='Jane'")
-        .then(response => {this.randomdata = response.data.docs})
+        .then(response => {this.randomData = response.data.docs})
     }
 
 
 
     getImageSrc() {
-      return "http://covers.openlibrary.org/b/OLID/" + this.bimg + "-M.jpg";
+      return "http://covers.openlibrary.org/b/OLID/" + this.bImg + "-M.jpg";
     }
 
   } // closing of the vue
@@ -106,4 +106,3 @@
     padding-left: 2rem;
   }
 </style>
-

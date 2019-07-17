@@ -20,78 +20,78 @@
           {{b.title}}
         </li>
       </ul>
-    </div>
-  </div>
+    </div> <!--Closing of details-->
+  </div>  <!--closing of home-->
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import  axios from 'axios';
+  import { Component, Vue } from 'vue-property-decorator';
+  import  axios from 'axios';
 
-@Component
-export default class Details extends Vue {
-  book: any;
-  related : any;
-  baseURL = 'https://openlibrary.org';
+  @Component
+  export default class Details extends Vue {
+    book: any;
+    related : any;
+    baseUrl = 'https://openlibrary.org';
 
-  data(){
-    return{
-      related:null
+    data(){
+      return{
+        related:null
+      }
     }
-  }
 
-  viewDetails(book: any) {
-    this.$router.push({ path: 'details', query: {
-      title: book.title,
-      authors: book.author_name && book.author_name.join(', '),
-      year: book.first_publish_year,
-      cover_id: book.cover_edition_key
-    }});
-    location.reload();
-  }
+    viewDetails(book: any) {
+      this.$router.push({ path: 'details', query: {
+        title: book.title,
+        authors: book.author_name && book.author_name.join(', '),
+        year: book.first_publish_year,
+        cover_id: book.cover_edition_key
+      }});
+      location.reload();
+    }
 
-  created() {
-    this.book = {
-      title: this.$route.query.title,
-      cover_id: this.$route.query.cover_id,
-      authors: this.$route.query.authors,
-      year: this.$route.query.year
-    };
-  }
+    created() {
+      this.book = {
+        title: this.$route.query.title,
+        cover_id: this.$route.query.cover_id,
+        authors: this.$route.query.authors,
+        year: this.$route.query.year
+      };
+    }
 
-  getImageSrc() {
-    return "http://covers.openlibrary.org/b/OLID/" + this.book.cover_id + "-M.jpg";
-  }
+    getImageSrc() {
+      return "http://covers.openlibrary.org/b/OLID/" + this.book.cover_id + "-M.jpg";
+    }
 
-  mounted () {
-    axios
-      .get("https://openlibrary.org/search.json?title="+((this.book.title.split(" ")[1])))
-      .then(response => (this.related = response.data.docs.slice(6,9)))
+    mounted () {
+      axios
+        .get("https://openlibrary.org/search.json?title="+((this.book.title.split(" ")[1])))
+        .then(response => (this.related = response.data.docs.slice(6,9)))
 
-  }
+    }
 
-} // closing of vue
+  } // closing of vue
 
 </script>
 
 <style>
-.details{
-  padding: 50px;
-  color: white;
-}
-.content {
-  display: flex;
-  justify-content: center;
+  .details{
+    padding: 50px;
+    color: white;
+  }
+  .content {
+    display: flex;
+    justify-content: center;
 
-}
+  }
 
-.details-card {
-  max-width: 800px;
-  padding: 1rem 2rem;
-  background-color: gray;
-}
+  .details-card {
+    max-width: 800px;
+    padding: 1rem 2rem;
+    background-color: gray;
+  }
 
-.details-card p {
-  padding-left: 2rem;
-}
+  .details-card p {
+    padding-left: 2rem;
+  }
 </style>

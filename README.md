@@ -23,13 +23,19 @@ to install vue material library -->
 	npm install --save vue-material
 
 
-Step 3: 
+Step 3:  
+
+to install vuex -->
+
+	npm install vuex --save
+
+Step 4: 
 
 Once all the files are ready, run the below command -->
 
 	npm run serve
 
 
-Step 4:
+Step 5:
 
 Open the mentioned local host that terminal shows once u have run the command in step 3.
